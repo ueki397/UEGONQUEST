@@ -17,12 +17,11 @@ class Monster < Character
 
 
     def attack(brave)
-        puts "#{@name}の攻撃！"
         judge_metamorphosis
-        calculate_damage
-        cause_damage(target: brave)
-        brave.hp =0 if brave.hp < 0
-        puts "#{brave.name}の残りHPは#{brave.hp}だ"
+        damage = calculate_damage(brave)
+        cause_damage(target: brave, damage: damage)
+        attack_message
+        damage_message(target: brave, damage: damage)
     end
 
 
@@ -30,6 +29,7 @@ class Monster < Character
         if @hp <= @hp_half && @metamorphosis_flag == false
             @metamorphosis_flag = true
             metamorphosis_name = "ドラゴン"
+            @offense *= POWER_UP_RATE
             puts <<~EOS
             #{@name}は怒り狂っている
             #{@name}は変身して#{metamorphosis_name}になった！
@@ -39,19 +39,16 @@ class Monster < Character
     end
 
 
-    def calculate_damage
-        puts "#{@name}の攻撃！"
-        if @metamorphosis_flag == true
-            @offense *= POWER_UP_RATE
-        end
+    def calculate_damage(target)
+            @offense - target.defense
     end
 
 
     def cause_damage(**params)
         target = params[:target]
-        damage = @offense - target.defense
+        damage = params[:damage]
         target.hp -= damage
-        puts "#{target.name}は#{damage}のダメージを受けた"
+        target.hp =0 if target.hp < 0
     end
 end
 
