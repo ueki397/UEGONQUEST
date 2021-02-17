@@ -36,5 +36,15 @@ module MessageDialog
                 EOS
             end    
     end
-    
+
+
+    def metamorphosis_message(metamorphosis_name)
+        puts <<~EOS
+
+        #{@name}は怒り狂っている
+        #{@name}は変身して#{metamorphosis_name}になった！
+
+        EOS
+    end
+
 end

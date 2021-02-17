@@ -30,10 +30,7 @@ class Monster < Character
             @metamorphosis_flag = true
             metamorphosis_name = "ドラゴン"
             @offense *= POWER_UP_RATE
-            puts <<~EOS
-            #{@name}は怒り狂っている
-            #{@name}は変身して#{metamorphosis_name}になった！
-            EOS
+            metamorphosis_message(metamorphosis_name)
             @name = metamorphosis_name
         end
     end

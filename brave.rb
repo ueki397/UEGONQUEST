@@ -33,6 +33,7 @@ class Brave < Character
 
 
     def decision_attack_type
+        #1/5の確率でスペシャルアタック
         attack_num = rand(4)
             if attack_num == 0
                 "special_attack"
